@@ -1,0 +1,35 @@
+﻿<Window x:Class="Bankown.AuthenticationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bankown"
+		mc:Ignorable="d"
+		xmlns:xaml="clr-namespace:Bankown.Helpers"
+        Title="Bankown Authentication" Height="600" Width="300"
+		xmlns:ui="http://schemas.modernwpf.com/2019"
+		ui:WindowHelper.UseModernWindowStyle="True">
+	<Window.Resources>
+		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+	</Window.Resources>
+	<Grid>
+		
+	<ScrollViewer>
+		<ui:Frame x:Name="ContentFrame" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="{StaticResource ControlPageContentMargin}">
+			<ui:Frame.ContentTransitions>
+				<ui:TransitionCollection>
+					<ui:NavigationThemeTransition />
+				</ui:TransitionCollection>
+			</ui:Frame.ContentTransitions>
+		</ui:Frame>
+	</ScrollViewer>
+		<Grid Background="#7F696969" DataContext="{Binding LoginCommand}" Visibility="{Binding IsExecuting, Converter={StaticResource BooleanToVisibilityConverter}}">
+			<ui:ProgressRing
+			
+				
+                    IsActive="{Binding IsExecuting}"
+                    Height="60"
+                    Width="60" />
+		</Grid>
+	</Grid>
+</Window>

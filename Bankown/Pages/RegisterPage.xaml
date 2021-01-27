@@ -1,0 +1,52 @@
+﻿<ui:Page
+	x:Class="Bankown.Pages.RegisterPage"
+	 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.modernwpf.com/2019" xmlns:sys="clr-namespace:System;assembly=mscorlib"
+	xmlns:xaml="clr-namespace:Bankown.Helpers"
+	mc:Ignorable="d">
+
+	<Grid Background="{DynamicResource ApplicationPageBackgroundThemeBrush}">
+		<ui:SimpleStackPanel x:Name="CompactPanel" Spacing="16">
+			<TextBlock Text="Create your account" FontSize="20" FontWeight="DemiBold"  HorizontalAlignment="Center"/>
+			<ui:HyperlinkButton Click="HyperlinkButton_Click" Content="Already have an account? Find it here." Margin="0,-20,0,20" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				<TextBox x:Name="first_name" ui:ControlHelper.PlaceholderText="First name" Text="{Binding User.FirstName}" Margin="0 0 2 0"/>
+				<TextBox x:Name="last_name" Grid.Column="1" ui:ControlHelper.PlaceholderText="Last name" Text="{Binding User.LastName}" Margin="2 0 0 0"/>
+			</Grid>
+			<ComboBox
+                            x:Name="country"
+                            ui:ControlHelper.Header="COUNTRY/REGION"
+				HorizontalAlignment="Stretch"
+				SelectedValue="{Binding User.Country}"
+							SelectedIndex="0">
+				<sys:String>United States</sys:String>
+				<sys:String>Poland</sys:String>
+				<sys:String>Ukraine</sys:String>
+				<sys:String>Russia</sys:String>
+				<sys:String>Republic of Belarus</sys:String>
+			</ComboBox>
+			
+			<DatePicker
+                    x:Name="birth_date"
+				SelectedDate="{Binding User.BirthDate}"
+					HorizontalAlignment="Stretch"
+                    ui:ControlHelper.PlaceholderText="Birth date" />
+			<TextBox ui:ControlHelper.PlaceholderText="Email" Text="{Binding User.Email}" x:Name="txtfirstName" />
+			<PasswordBox ui:ControlHelper.PlaceholderText="Password" xaml:Secure.Password="{Binding Password}" />
+			<PasswordBox ui:ControlHelper.PlaceholderText="Repeat password" />
+			<Button
+				HorizontalAlignment="Stretch"
+                    x:Name="Button"
+                    Content="Sign up" 
+					Command="{Binding RegisterCommand}"/>
+		</ui:SimpleStackPanel>
+	</Grid>
+</ui:Page>
