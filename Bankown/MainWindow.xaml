@@ -1,15 +1,23 @@
 ﻿<Window x:Class="Bankown.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Bankown" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-		mc:Ignorable="d"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:muxc="http://schemas.modernwpf.com/2019"
+    xmlns:ui="http://schemas.modernwpf.com/2019"
         Title="MainWindow" Height="450" Width="800">
-	<StackPanel>
-		<StackPanel Orientation="Horizontal">
-			<TextBlock Text="{Binding User.FirstName}"/>
-			<TextBlock Text="{Binding User.LastName}"/>
-		</StackPanel>
-	</StackPanel>
+	<Grid>
+		<muxc:NavigationView x:Name="navigation"
+							 PaneDisplayMode="Top"
+							 IsTabStop="False" 
+							 SelectionFollowsFocus="Enabled"
+							 SelectionChanged="navigation_SelectionChanged"
+							 IsBackButtonVisible="Collapsed">
+			<muxc:NavigationView.MenuItems>
+				<muxc:NavigationViewItem Content="Hub" Tag="HubPage" />
+				<muxc:NavigationViewItem Content="Cards" Tag="CardsPage" />
+				<muxc:NavigationViewItem Content="Transactions" Tag="TransactionsPage" />
+			</muxc:NavigationView.MenuItems>
+
+			<ui:Frame x:Name="contentFrame" />
+		</muxc:NavigationView>
+	</Grid>
 </Window>

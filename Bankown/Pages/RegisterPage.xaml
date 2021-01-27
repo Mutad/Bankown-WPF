@@ -47,6 +47,8 @@
                     x:Name="Button"
                     Content="Sign up" 
 					Command="{Binding RegisterCommand}"/>
+			<TextBlock HorizontalAlignment="Center" Text="{Binding ErrorMessage,UpdateSourceTrigger=PropertyChanged}" Foreground="#FFD10000" />
+
 		</ui:SimpleStackPanel>
 	</Grid>
 </ui:Page>

@@ -19,6 +19,7 @@
                     Content="Log in" 
 					Command="{Binding LoginCommand}"
 				/>
+			<TextBlock HorizontalAlignment="Center" Text="{Binding ErrorMessage,UpdateSourceTrigger=PropertyChanged}" Foreground="#FFD10000" />
 
 			<ui:HyperlinkButton Content="Dont have an account? Create one now." Click="HyperlinkButton_Click"/>
 		</ui:SimpleStackPanel>

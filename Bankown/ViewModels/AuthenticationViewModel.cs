@@ -29,6 +29,7 @@ namespace Bankown.ViewModels
         string password = "12345678";
         string passwordRepeat = "12345678";
         public ModernWpf.Controls.Frame ContentFrame;
+        string errorMessage = "";
 
         User user = null;
         public Action CloseAction { get; set; }
@@ -78,6 +79,15 @@ namespace Bankown.ViewModels
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
+        public string ErrorMessage
+        {
+            get => errorMessage;
+            set
+            {
+                errorMessage = value;
+                OnPropertyChanged("ErrorMessage");
+            }
+        }
 
         public RelayAsyncCommand LoginCommand { get; private set; }
         public RelayAsyncCommand RegisterCommand { get; private set; }
@@ -103,7 +113,7 @@ namespace Bankown.ViewModels
                 else
                 {
                     Trace.WriteLine("login unsuccessful");
-                    Trace.WriteLine(res.Content.ReadAsStringAsync().Result);
+                    ErrorMessage = "Credential you entered are invalid!";
                     // TODO show error message
                 }
             });
@@ -120,12 +130,14 @@ namespace Bankown.ViewModels
                     Debug.WriteLine(obj["access_token"]);
                     string token = obj["access_token"].ToString();
                     Debug.WriteLine(token[0..5]);
+                    //FIXME: make token type as separate property
                     HttpController.Instance.Token = new AccessToken() { Type = token[0..6],Value=  token[7..] };
                     Application.Current.Dispatcher.Invoke(CloseAction);
                 }
                 else
                 {
                     Debug.WriteLine(res.Content.ReadAsStringAsync().Result);
+                    ErrorMessage = "Please enter a valid data!";
                 }
             });
         }

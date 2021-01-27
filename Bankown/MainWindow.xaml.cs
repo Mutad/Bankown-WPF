@@ -1,6 +1,8 @@
 ﻿using Bankown.Controllers;
 using Bankown.Models;
+using Bankown.Pages;
 using Bankown.ViewModels;
+using ModernWpf.Controls;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -24,17 +26,31 @@ namespace Bankown
     /// </summary>
     public partial class MainWindow : Window
     {
-
-        public string MainWindowVariable = "variable in main window";
         public MainWindow(User user) 
         {
             InitializeComponent();
             DataContext = new ApplicationViewModel() { User = user };
-            //var resp = HttpController.Instance.GetAsync("/api/auth/user").ContinueWith((resp) =>
-            //{
-            //    Trace.WriteLine(resp.Result.StatusCode);
-            //    Trace.WriteLine(resp.Result.Content);
-            //});
+
+            navigation.SelectedItem = navigation.MenuItems.OfType<NavigationViewItem>().First();
+        }
+
+        private void navigation_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+        {
+            if (args.IsSettingsSelected)
+            {
+                contentFrame.Navigate(typeof(SettingsPage));
+            }
+            else
+            {
+                var selectedItem = (ModernWpf.Controls.NavigationViewItem)args.SelectedItem;
+                if (selectedItem != null)
+                {
+                    string selectedItemTag = (string)selectedItem.Tag;
+                    string pageName = "Bankown.Pages." + selectedItemTag;
+                    Type pageType = Type.GetType(pageName);
+                    contentFrame.Navigate(pageType,null, args.RecommendedNavigationTransitionInfo);
+                }
+            }
         }
     }
 }
